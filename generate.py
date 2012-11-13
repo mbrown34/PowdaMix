@@ -63,7 +63,7 @@ class Player:
 	def addJob(self):
 		choice=0
 		while choice < 1 or choice > 6:
-			print "\nWhat will the new character's class be?\n\n\t1) Fighter\t2) Mage\t3) Thief\t4) Ranger\t5) Cleric\t6) Monk\n"
+			print "\nWhat will the new character's class be?\n\n\t1) Fighter   2) Mage   3) Thief   4) Ranger  5) Cleric  6) Monk\n"
 			choice = input(">>")
 			if choice ==1:
 				self.job='Fighter'
