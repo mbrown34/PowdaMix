@@ -5,46 +5,58 @@ Created on November 11, 2012
 @author Matthew
 """
 import diceRoll
+#import spells
+#import skills
+#import equipment
+#import items
 class Player:
 	def __init__(self):
-		self.character=[]
-		self.addName()
-		self.addRace()
+		self.name=''
+		self.race=''
+		self.job=''
 		self.statNames=["STR","DEX","CON","INT","WIS","CHA"]
 		self.statVals=[]
-		self.setVals(self.statNames, self.statVals)
-		self.raceBonus(self.character, self.statVals)
 		self.hp=0
-		self.setHP(self.character, self.statVals)
-		self.addClass()
 		self.equip=[]
 		self.equipment=[]
 		self.items=[]
 		self.spells=[]
 		self.skills=[]
+		#functions that will run to populate an initial character object's variables
+		#
+		self.addName()
+		self.addRace()
+		self.setVals()
+		#self.raceBonus()
+		self.setHP()
+		#self.addJob()
+		#self.initialEquip()
+		#self.initialInv()
+		#self.initialSpells()
+		#self.initialSkills()
 	def __str__(self):
 		return "Character"
 	def __repr__(self):
 		return "Character"
 	def addName(self):
 		print "\nWhat will the character's name be?\n"
-		name=raw_input(">>")
-		self.character.append(name)
+		self.name=raw_input(">>")
+		
 	def addRace(self):
 		choice = 0
 		while choice < 1 or choice > 5:
 			print "\nWhat is the new character's race?\n\n\t1) Human\t2) Elven\t3) Half-Elven\t4) Dwarven\t5) Halfling\n"
 			choice = input(">>")
 			if choice == 1:
-				self.character.append('Human')
+				self.race='Human'
 			elif choice == 2:
-				self.character.append('Elven')
+				self.race='Elven'
 			elif choice == 3:
-				self.character.append('Half-Elven')
+				self.race='Half-Elven'
 			elif choice == 4:
-				self.character.append('Dwarven')
+				self.race='Dwarven'
 			elif choice == 5:
-				self.character.append('Halfling')
+				self.race='Halfling'
 			else:
 				print "\nThat is not a valid option. Please try again..."
 
@@ -54,20 +66,20 @@ class Player:
 			print "\nWhat will the new character's class be?\n\n\t1) Fighter\t2) Mage\t3) Thief\t4) Ranger\t5) Cleric\t6) Monk\n"
 			choice = input(">>")
 			if choice ==1:
-				self.character.append('Fighter')
+				self.job='Fighter'
 			elif choice ==2:
-				self.character.append('Mage')
+				self.job='Mage'
 			elif choice ==3:
-				self.character.append('Thief')
+				self.job='Thief'
 			elif choice ==4:
-				self.character.append('Ranger')
+				self.job='Ranger'
 			elif choice ==5:
-				self.character.append('Cleric')
+				self.job='Cleric'
 			elif choice == 6:
-				self.character.append('Monk')
+				self.job='Monk'
 			else:
 				print "\nThat is not a valid option. Please try again..."
-	def setHP(self, character, statVals):
+	def setHP(self):
 		die=diceRoll.Die()
 		if self.statVals[2] >18:
 			dice=16
@@ -88,7 +100,7 @@ class Player:
 		elif self.statVals[2] >2:
 			dice=8
 		self.hp=die.roll(dice,6)
-	def setVals(self, statNames, statVals):
+	def setVals(self):
 		die=diceRoll.Die()
 		x=0
 		while x<6:
@@ -96,8 +108,10 @@ class Player:
 			self.statVals.append(roll)
 			x+=1
 		print "\nYour current stat rolls are:\n"
+		n=0
 		for i in self.statNames and self.statVals:
-			print"\t", self.statNames, ": ", self.statVals, "\n"
+			print"\t", self.statNames[n], ": ", self.statVals[n], "\n"
+			n+=1
 		extraPoints=die.roll(3,6)
 	        while extraPoints > 0 or choice < 1 or choice > 6:
 			print "You have", extraPoints,"to spend on increasing stats."
@@ -133,12 +147,12 @@ class Player:
 					extraPoints-=1
 			else:
 				print"\nI am sorry, either that is not a valid choice or that stat is maxed out.  Please try again..."
-	def raceBonus(self, character, statVals):
+	def raceBonus(self):
 		print
-	def addClass(self):
+	def addJob(self):
 		print
 	def displayInfo(self):
-		print"\n\tYour Name:", self.character[0],"\n\tYour Race:", self.character[1],"\n\tYour Class: 'not completed yet.'"
+		print"\n\tYour Name:", self.name,"\n\tYour Race:", self.race,"\n\tYour Class:", self.job, "\n"
 		print"\tYour stats are:\n"
 		x=0
 		for stat in self.statNames and self.statVals:
