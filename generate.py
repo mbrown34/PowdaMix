@@ -23,13 +23,13 @@ class Player:
 		self.spells=[]
 		self.skills=[]
 		#functions that will run to populate an initial character object's variables
-		#
+		#this should allow each character object to be different from the last one created
 		self.addName()
 		self.addRace()
 		self.setVals()
 		#self.raceBonus()
 		self.setHP()
-		#self.addJob()
+		self.addJob()
 		#self.initialEquip()
 		#self.initialInv()
 		#self.initialSpells()
@@ -38,14 +38,14 @@ class Player:
 		return "Character"
 	def __repr__(self):
 		return "Character"
+	
 	def addName(self):
 		print "\nWhat will the character's name be?\n"
-		self.name=raw_input(">>")
-		
+		self.name=raw_input(">>")	
 	def addRace(self):
 		choice = 0
 		while choice < 1 or choice > 5:
-			print "\nWhat is the new character's race?\n\n\t1) Human\t2) Elven\t3) Half-Elven\t4) Dwarven\t5) Halfling\n"
+			print "\nWhat is the new character's race?\n\n\t1) Human   2) Elven   3) Half-Elven   4) Dwarven   5) Halfling\n"
 			choice = input(">>")
 			if choice == 1:
 				self.race='Human'
@@ -60,7 +60,7 @@ class Player:
 			else:
 				print "\nThat is not a valid option. Please try again..."
 
-	def addClass(self):
+	def addJob(self):
 		choice=0
 		while choice < 1 or choice > 6:
 			print "\nWhat will the new character's class be?\n\n\t1) Fighter\t2) Mage\t3) Thief\t4) Ranger\t5) Cleric\t6) Monk\n"
@@ -149,7 +149,13 @@ class Player:
 				print"\nI am sorry, either that is not a valid choice or that stat is maxed out.  Please try again..."
 	def raceBonus(self):
 		print
-	def addJob(self):
+	def initialEquip(self):
+		print
+	def initialInv(self):
+		print
+	def initialSpells(self):
+		print
+	def initialSkills(self):
 		print
 	def displayInfo(self):
 		print"\n\tYour Name:", self.name,"\n\tYour Race:", self.race,"\n\tYour Class:", self.job, "\n"
