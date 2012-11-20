@@ -20,19 +20,19 @@ meleeList= [
 	    ["Long Sword", "A decent sword used in combat.", 1, 8], 
 	    ["Staff", "A wooden staff engraved with the user's insignia.", 1, 6],
 	    ["Mace", "A large club used typically by Clerics.", 1, 8], 
-	    ["Warhammer", "A heavy, two-handed weapon capable of a large amount of damage", 2, 8]
+	    ["Warhammer", "A heavy, two-handed weapon capable of a large amount of damage", 2, 8],
 	   ] 
 #ranged weapons follow the same formula above, with the addition of a fifth item in the list used for the range of the weapon
 rangedList= [
 	     ["Short Bow", "A small bow used for hunting.", 1, 6, 350], 
 	     ["Long Bow", "A large bow used by the military for long-range combat.", 2,6, 500],
 	     ["Sling", "A small slingshot which hurls stones at your enemies.", 1, 6, 200],
-	     ["Throwing Knives", "Sharp knives that deal a good amount of damage.", 2, 4, 100]
+	     ["Throwing Knives", "Sharp knives that deal a good amount of damage.", 2, 4, 100],
 	    ]
 #armor addition is name, description, defense value, dexterity penalty
 armorList= [
 	    ["Mage's Robes", "Lightweight robes providing little protection.", 10, 0],
-	    ["Monk's Garb", "Heavier cloth providing more protection than standard robes.", 15, 0], 
+	    ["Monk's Garb", "Heavier cloth providing more protection than a mage's robes.", 15, 0], 
             ["Leather Armor", "Lightweight armor that provides decent protection.", 20, 0],
 	    ["Studded Armor", "Leather armor with studs to deflect sword slashes.", 25, 0], 
             ["Hide Armor", "Armor made from the tough hides of animals.", 15, 1],
@@ -43,3 +43,10 @@ armorList= [
 	    ["Small Shield","A small shield used to increase defense.", 15, 2],
 	    ["Medium Shield", "A larger shield that provides a substantial boost to defense.", 25, 3],
 	   ]
+
+#item addition is name, description, effect type, i.e. heal, status, damage, etc., value for effect, i.e. +100 for healing, -20 for damage, "+Confused" for status adding #confusion, "-Poison" for removing poison
+itemList= [
+		["Light Potion", "A small potion for healing light wounds.", "Healing", 25],
+		["Sober Potion", "A potion used to aid in recovering one's wits.", "Status", "-Confused"],
+		["Medium Potion", "A medium-sized potion for healing more serious wounds.", "Healing", 50],
+	  ]
