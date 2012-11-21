@@ -36,7 +36,6 @@ class Player:
 		self.displayInfo()
 		self.addJob()
 		self.initialEquip()
-		#self.initialInv()
 		#self.initialSpells()
 		#self.initialSkills()
 	def __str__(self):
@@ -199,23 +198,50 @@ class Player:
 			self.range.append(equipment.addItem(self,"equipment","rangedList","Short Bow"))
 			self.armor.append(equipment.addItem(self,"equipment", "armorList","Medium Shield"))
 			self.armor.append(equipment.addItem(self,"equipment","armorList", "Studded Armor"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))			
 		elif self.job=='Mage':
 			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Staff"))
 			self.armor.append(equipment.addItem(self,"equipment", "armorList","Mage's Robes"))
+			self.equipment.append(equipment.addItem(self,"equipment","meleeList", "Dagger"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Small Mana Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Large Mana Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Large Mana Potion"))
 		elif self.job=='Thief':
 			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Dagger"))
 			self.range.append(equipment.addItem(self,"equipment", "rangedList","Short Bow"))
 			self.armor.append(equipment.addItem(self,"equipment", "armorList","Leather Armor"))
+			self.equipment.append(equipment.addItem(self,"equipment","meleeList", "Short Sword"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
 		elif self.job=='Ranger':
 			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Long Sword"))
 			self.range.append(equipment.addItem(self,"equipment", "rangedList","Long Bow"))
 			self.armor.append(equipment.addItem(self,"equipment", "armorList","Studded Armor"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
 		elif self.job=='Cleric':
 			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Mace"))
 			self.armor.append(equipment.addItem(self,"equipment", "armorList","Small Shield"))
 			self.armor.append(equipment.addItem(self,"equipment", "armorList","Scale Armor"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Small Mana Potion"))
 		elif self.job=='Monk':
 			self.armor.append(equipment.addItem(self,"equipment", "armorList","Monk's Garb"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
+			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
 	def displayEquip(self):
 			print "Your equipped melee weapon is:"
 			for x in self.weapon: 
@@ -226,8 +252,12 @@ class Player:
 			print "Your equipped armor is:"
 			for x in self.armor: 
 				print x
-	def initialInv(self):
-		print
+			print "Your equippable items are:"
+			for x in self.equipment:
+				print x
+			print "Your usable items are:"
+			for x in self.items:
+				print x
 	def initialSpells(self):
 		print
 	def initialSkills(self):

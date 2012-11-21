@@ -49,4 +49,7 @@ itemList= [
 		["Light Potion", "A small potion for healing light wounds.", "Healing", 25],
 		["Sober Potion", "A potion used to aid in recovering one's wits.", "Status", "-Confused"],
 		["Medium Potion", "A medium-sized potion for healing more serious wounds.", "Healing", 50],
+		["Small Mana Potion", "A small potion for recovering mp.", "MP Recover", 25],
+		["Large Mana Potion", "A large potion that recovers a large amount of mp.", "MP Recover", 50],
+		["Elixir", "A special potion that fully restores all hp and mp.", "Healing", 100],
 	  ]
