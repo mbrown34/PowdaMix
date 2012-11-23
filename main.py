@@ -11,6 +11,6 @@ import sys
 gameOver = False
 
 while gameOver != True:
-	gameOver = menus.main()
+	gameOver = menus.start()
 #simple loop to continue game execution while a value is not returned to the menus.main()
 #indicating that the game should be terminated.

@@ -4,18 +4,14 @@ Created on November 10, 2012
 @author Matthew
 """
 import generate
-def main():
+def start():
 	title()
 	choice = 0
-	gameOver = False
-	while choice < 1 or choice > 6 or gameOver != True:
-		print"""\n\n\t\t\tMAIN MENU:
-		1) Create your player
-		2) Enter the Equipment Store
-		3) Enter the Battle Square	
-		4) Check Equipment
-		5) Save current character and inventory status
-		6) Exit the game
+	while choice < 1 or choice > 3:
+		print"""\n\n\t\t\tSTART MENU:
+		1) Create new player
+		2) Load previously saved character
+		3) Exit the game
 		"""
 		choice=input(">> ")
 		if choice == 1:
@@ -25,39 +21,82 @@ def main():
 			character.displayInfo()
 		elif choice == 2:
 			print
-			#equip.store()
+			#character= generate.Player.load()
 		elif choice == 3:
-			print			
-			#world.battle()
-		elif choice == 4:
-			print
-		elif choice == 5:
-			print
-		elif choice == 6:
 			gameOver=True
 			return gameOver
 		else:
 			print"\n\nThat is not a valid input choice. Please try again..."
-			
+	gameOver=main(character)
+	return gameOver
+
+def main(character):
+	choice=0
+	gameOver=False
+	while choice < 1 or choice > 5 or gameOver != True:
+		print"""\n\n\t\t\tMAIN MENU:
+		1) Purchase equipment from the store
+		2) Combat foes in the battle square
+		3) View your current character information
+		4) Save your current inventory and status
+		5) Exit the game
+		"""
+		choice = input(">> ")
+		if choice == 1:
+			print
+			#store(character)
+		elif choice == 2:
+			print
+			#battle(character)
+		elif choice == 3:
+			character.displayEquip()
+			character.displayInfo()
+		elif choice == 4:
+			print
+			#save character
+		elif choice == 5:
+			gameOver=True
+			return gameOver
+		else:
+			"\nI'm sorry, that is not a valid choice.  Please try again..."
+def store(character):
+	choice = 0:
+	while choice < 1 or choice > 3:
+		print"""\n\n\t\t\tSTORE MENU:
+		1) Buy items
+		2) Sell items
+		3) Exit the store
+		"""
+		if choice == 1:
+		    userChoice=0
+		    while userChoice < 1 or userChoice > 5:
+			"""\n\n\t\t\tPURCHASE MENU:
+			1) Melee Weaponry
+			2) Ranged Weaponry
+			3) Armor
+			4) Items
+			5) Cancel
+			"""
+		userChoice = input(">> ")
 def title():
 	print"""\n\n\t\t\t    WELCOME TO...\n\n
-	    @@   @       @       @@@   @@@@@@@@     @@@         @@      @@@@@@@
-   	   @@   @@      @@      @@@    @@ @@ @@    @@@         @@@@    @@@@@@   
- 	   @@@  @@      @@     @@     @  @@  @    @@         @@  @@    @@
-	  @@@@@@@@      @@     @@@@      @@       @@@@       @@   @@   @@@@@@   
-	@ @@@ @ @@      @@       @@@     @@         @@@      @@   @@   @@@  
-	@@@@    @@      @@   @@@ @@@     @@@    @@@ @@@      @@   @@   @@   
-	@@@     @@@   @@@    @@@@@@      @@@    @@@@@@        @@ @@    @@   
-	 @       @@    @      @@@@      @@@@     @@@@          @@@    @@@@   
+	    @@   @      @      @@@   @@@@@@@@    @@@         @@      @@@@@@@
+   	   @@   @@     @@     @@@    @@ @@ @@   @@@         @@@@    @@@@@@   
+ 	   @@@  @@     @@    @@     @  @@  @   @@         @@  @@    @@
+	  @@@@@@@@     @@    @@@@      @@      @@@@       @@   @@   @@@@@@   
+	@ @@@ @ @@     @@      @@@     @@        @@@      @@   @@   @@@  
+	@@@@    @@     @@  @@@ @@@     @@@   @@@ @@@      @@   @@   @@   
+	@@@     @@@  @@@   @@@@@@      @@@   @@@@@@        @@ @@    @@   
+	 @       @@   @     @@@@      @@@@    @@@@          @@@    @@@@   
 
-	          @@      @@@@@@      @@@@         @@     @@@@
-	         @@@@     @@   @@      @@@@       @@@@    @@@@
-	         @@ @@    @@  @@@      @@@@@      @@ @@    @@@
-	        @@  @@    @@@@@        @@ @@     @@  @@    @@@
-	        @@@@@@    @@  @@       @@ @@     @@@@@@    @@@
-	      @ @@   @    @@   @@      @@ @@   @ @@  @@       
-	      @@@@  @@    @@    @@     @@@@    @@@@  @@    @@@
-	       @@   @@    @@    @@@   @@@       @@   @@    @@@
+	          @@      @@@@@@     @@@@        @@     @@@@
+	         @@@@     @@   @@     @@@@      @@@@    @@@@
+	         @@ @@    @@  @@@     @@@@@     @@ @@    @@@
+	        @@  @@    @@@@@       @@ @@    @@  @@    @@@
+	        @@@@@@    @@  @@      @@ @@    @@@@@@    @@@
+	      @ @@   @    @@   @@     @@ @@  @ @@  @@       
+	      @@@@  @@    @@    @@    @@@@   @@@@  @@    @@@
+	       @@   @@    @@    @@@  @@@      @@   @@    @@@
 """
 	raw_input("\n\n\t\t...Press the enter key to continue")
 	

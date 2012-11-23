@@ -15,19 +15,19 @@ def addItem(self, fileName, listName, itemName):
 			        x+=1
 
 meleeList= [
-	    ["Dagger", "A very small knife. Only suitable for emergency situations.", 1, 4], 
-	    ["Short Sword", "A small sword used to fight smaller foes.", 1, 6],
-	    ["Long Sword", "A decent sword used in combat.", 1, 8], 
-	    ["Staff", "A wooden staff engraved with the user's insignia.", 1, 6],
-	    ["Mace", "A large club used typically by Clerics.", 1, 8], 
-	    ["Warhammer", "A heavy, two-handed weapon capable of a large amount of damage", 2, 8],
+	    ["Dagger", "A very small knife. Only suitable for emergency situations.", 1, 4, 25, 10], 
+	    ["Short Sword", "A small sword used to fight smaller foes.", 1, 6, 35, 15],
+	    ["Long Sword", "A decent sword used in combat.", 1, 8, 50, 20], 
+	    ["Staff", "A wooden staff engraved with the user's insignia.", 1, 6, 35, 15],
+	    ["Mace", "A large club used typically by Clerics.", 1, 8, 50, 20], 
+	    ["Warhammer", "A heavy, two-handed weapon capable of a large amount of damage", 2, 8, 100, 45],
 	   ] 
 #ranged weapons follow the same formula above, with the addition of a fifth item in the list used for the range of the weapon
 rangedList= [
-	     ["Short Bow", "A small bow used for hunting.", 1, 6, 350], 
-	     ["Long Bow", "A large bow used by the military for long-range combat.", 2,6, 500],
-	     ["Sling", "A small slingshot which hurls stones at your enemies.", 1, 6, 200],
-	     ["Throwing Knives", "Sharp knives that deal a good amount of damage.", 2, 4, 100],
+	     ["Short Bow", "A small bow used for hunting.", 1, 6, 350, 55, 25], 
+	     ["Long Bow", "A large bow used by the military for long-range combat.", 2,6, 500, 100, 45],
+	     ["Sling", "A small slingshot which hurls stones at your enemies.", 1, 6, 200, 40, 15],
+	     ["Throwing Knives", "Sharp knives that deal a good amount of damage.", 2, 4, 100, 5, 1],
 	    ]
 #armor addition is name, description, defense value, dexterity penalty
 armorList= [

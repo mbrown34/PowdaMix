@@ -25,6 +25,7 @@ class Player:
 		self.items=[]
 		self.spells=[]
 		self.skills=[]
+		self.gold=0
 		#functions that will run to populate an initial character object's variables
 		#this should allow each character object to be different from the last one created
 		self.addName()
@@ -36,6 +37,7 @@ class Player:
 		self.displayInfo()
 		self.addJob()
 		self.initialEquip()
+		self.setGold()
 		#self.initialSpells()
 		#self.initialSkills()
 	def __str__(self):
@@ -258,6 +260,9 @@ class Player:
 			print "Your usable items are:"
 			for x in self.items:
 				print x
+	def setGold(self):
+		die=diceRoll.Die()
+		self.gold=die.roll(100,5)
 	def initialSpells(self):
 		print
 	def initialSkills(self):
@@ -271,4 +276,7 @@ class Player:
 			x+=1
 		print"Your hp is:", self.hp, " "
 		print"Your mp is:", self.mp, " "
-		
+	def save(self):
+		print
+	def load(self):
+		print
