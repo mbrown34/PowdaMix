@@ -5,7 +5,7 @@ Created on November 11, 2012
 @author Matthew
 """
 import diceRoll
-#import spells
+import spells
 #import skills
 import equipment
 #import items
@@ -16,13 +16,15 @@ class Player:
 		self.job='None'
 		self.statNames=["STR","DEX","CON","INT","WIS","CHA"]
 		self.statVals=[]
-		self.hp=0
-		self.mp=0
-		self.weapon=[]
-		self.range=[]
+		self.currentHP=0
+		self.maxHP=0
+		self.currentMP=0
+		self.maxMP=0
+		self.equipped=[]
 		self.equipment=[]
-		self.armor=[]
+		#self.maxCarry=0
 		self.items=[]
+		self.accessories=[]
 		self.spells=[]
 		self.skills=[]
 		self.gold=0
@@ -36,6 +38,7 @@ class Player:
 		self.setMP()
 		self.displayInfo()
 		self.addJob()
+		self.initialInv()
 		self.initialEquip()
 		self.setGold()
 		#self.initialSpells()
@@ -105,7 +108,8 @@ class Player:
 			dice=9
 		elif self.statVals[2] >2:
 			dice=8
-		self.hp=die.roll(dice,6)
+		self.maxHP=die.roll(dice,6)
+		self.currentHP=self.maxHP
 	def setMP(self):
 		die=diceRoll.Die()
 		if self.statVals[4] >18:
@@ -126,7 +130,8 @@ class Player:
 			dice=7
 		elif self.statVals[4] >1:
 			dice=6
-		self.mp=die.roll(dice,6)
+		self.maxMP=die.roll(dice,6)
+		self.currentMP=self.maxMP
 	def setVals(self):
 		die=diceRoll.Die()
 		x=0
@@ -137,43 +142,55 @@ class Player:
 		print "\nYour current stat rolls are:\n"
 		n=0
 		for i in self.statNames and self.statVals:
-			print"\t", self.statNames[n], ": ", self.statVals[n], "\n"
+			print"\t", self.statNames[n], ": ", self.statVals[n], ""
 			n+=1
 		extraPoints=die.roll(3,6)
 	        while extraPoints > 0 or choice < 1 or choice > 6:
-			print "You have", extraPoints,"to spend on increasing stats."
-			print "Which stat would you like to increase? (You cannot increase higher than 18)"
+			print "\nYou have", extraPoints,"to spend on increasing stats."
+			print "Which stat would you like to increase? (You cannot increase higher than 18)\n"
 			n=1
 			for i in self.statNames and self.statVals:
-				print"\t", n, ")", self.statNames[n-1], ": ", self.statVals[n-1], "\n"
+				print"\t", n, ")", self.statNames[n-1], ": ", self.statVals[n-1], ""
 				n+=1
 			choice = input("\n>> ")
 			if choice == 1:
 				if self.statVals[choice-1] < 18:
 					self.statVals[choice-1] +=1
 					extraPoints-=1
+				else:
+					print "That stat is maxed out..."
 			elif choice ==2:
 				if self.statVals[choice-1] < 18:
 					self.statVals[choice-1] +=1
 					extraPoints-=1
+				else:
+					print "That stat is maxed out..."
 			elif choice ==3:
 				if self.statVals[choice-1] < 18:
 					self.statVals[choice-1] +=1
 					extraPoints-=1
+				else:
+					print "That stat is maxed out..."
 			elif choice ==4:
 				if self.statVals[choice-1] < 18:
 					self.statVals[choice-1] +=1
 					extraPoints-=1
+				else:
+					print "That stat is maxed out..."
 			elif choice ==5:
 				if self.statVals[choice-1] < 18:
 					self.statVals[choice-1] +=1
 					extraPoints-=1
+				else:
+					print "That stat is maxed out..."
 			elif choice ==6:
 				if self.statVals[choice-1] < 18:
 					self.statVals[choice-1] +=1
 					extraPoints-=1
+				else:
+					print "That stat is maxed out..."			
 			else:
-				print"\nI am sorry, either that is not a valid choice or that stat is maxed out.  Please try again..."
+				print"\nI am sorry, that is not a valid choice.  Please try again..."
 	def raceBonus(self):
 		#statVals[0]=STR [1]=DEX [2]=CON [3]=INT [4]=WIS [5]=CHA
 		#Human Elven Half-Elven Dwarven Halfling
@@ -194,89 +211,185 @@ class Player:
 			self.statVals[2] -=1
 			self.statVals[3] +=1
 			self.statVals[5] -=2
-	def initialEquip(self):
+	def initialInv(self):
 		if self.job=='Fighter':
-			self.weapon.append(equipment.addItem(self,"equipment","meleeList","Long Sword"))
-			self.range.append(equipment.addItem(self,"equipment","rangedList","Short Bow"))
-			self.armor.append(equipment.addItem(self,"equipment", "armorList","Medium Shield"))
-			self.armor.append(equipment.addItem(self,"equipment","armorList", "Studded Armor"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))			
+			self.addItem("equipment","rangedList","Short Bow")
+			self.addItem("equipment","meleeList","Long Sword")
+			self.addItem("equipment", "shieldList","Medium Shield")
+			self.addItem("equipment","armorList", "Studded Armor")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Medium Potion")
+			
 		elif self.job=='Mage':
-			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Staff"))
-			self.armor.append(equipment.addItem(self,"equipment", "armorList","Mage's Robes"))
-			self.equipment.append(equipment.addItem(self,"equipment","meleeList", "Dagger"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Small Mana Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Large Mana Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Large Mana Potion"))
+			self.addItem("equipment", "meleeList","Staff")
+			self.addItem("equipment", "armorList","Mage's Robes")
+			self.addItem("equipment","meleeList", "Dagger")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Small Mana Potion")
+			self.addItem("equipment","itemList", "Large Mana Potion")
+			self.addItem("equipment","itemList", "Large Mana Potion")
 		elif self.job=='Thief':
-			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Dagger"))
-			self.range.append(equipment.addItem(self,"equipment", "rangedList","Short Bow"))
-			self.armor.append(equipment.addItem(self,"equipment", "armorList","Leather Armor"))
-			self.equipment.append(equipment.addItem(self,"equipment","meleeList", "Short Sword"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
+			self.addItem("equipment", "meleeList","Dagger")
+			self.addItem("equipment", "rangedList","Short Bow")
+			self.addItem("equipment", "armorList","Leather Armor")
+			self.addItem("equipment","meleeList", "Short Sword")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Medium Potion")
 		elif self.job=='Ranger':
-			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Long Sword"))
-			self.range.append(equipment.addItem(self,"equipment", "rangedList","Long Bow"))
-			self.armor.append(equipment.addItem(self,"equipment", "armorList","Studded Armor"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
+			self.addItem("equipment", "meleeList","Long Sword")
+			self.addItem("equipment", "rangedList","Long Bow")
+			self.addItem("equipment", "armorList","Studded Armor")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Medium Potion")
+			self.addItem("equipment","itemList", "Medium Potion")
 		elif self.job=='Cleric':
-			self.weapon.append(equipment.addItem(self,"equipment", "meleeList","Mace"))
-			self.armor.append(equipment.addItem(self,"equipment", "armorList","Small Shield"))
-			self.armor.append(equipment.addItem(self,"equipment", "armorList","Scale Armor"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Small Mana Potion"))
+			self.addItem("equipment", "meleeList","Mace")
+			self.addItem("equipment", "shieldList","Small Shield")
+			self.addItem("equipment", "armorList","Scale Armor")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Medium Potion")
+			self.addItem("equipment","itemList", "Small Mana Potion")
 		elif self.job=='Monk':
-			self.armor.append(equipment.addItem(self,"equipment", "armorList","Monk's Garb"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Light Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
-			self.items.append(equipment.addItem(self,"equipment","itemList", "Medium Potion"))
+			self.addItem("equipment", "armorList","Monk's Garb")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Light Potion")
+			self.addItem("equipment","itemList", "Medium Potion")
+			self.addItem("equipment","itemList", "Medium Potion")
+	def initialEquip(self):
+		weapons=0
+		armor=0
+		shield=0
+		for item in self.equipment:
+			if item.__repr__ =="melee":
+				if weapons <1:
+					self.equipped.append(item)
+					weapons+=1
+			if item.__repr__ =="armor":
+				if armor<1:
+					self.equipped.append(item)
+					armor+=1
+			if item.__repr__=="shield":
+				if shield<1:
+					self.equipped.append(item)
+					shield+=1
+	def equip(self, fileName, listName, itemName):
+		pass
+	def unequip(self, fileName, listName, itemName):
+		pass
+				
 	def displayEquip(self):
-			print "Your equipped melee weapon is:"
-			for x in self.weapon: 
-				print x
-			print "Your equipped ranged weapon is:"
-			for x in self.range: 
-				print x
-			print "Your equipped armor is:"
-			for x in self.armor: 
-				print x
-			print "Your equippable items are:"
-			for x in self.equipment:
-				print x
-			print "Your usable items are:"
-			for x in self.items:
-				print x
+		print "Your equipped items are:"
+		for x in self.equipped: 
+			x.printInfo()
+		loopEnter=0
+		for x in self.equipment:
+			if loopEnter<1:
+				print "Your equippable items are:"
+				loopEnter+=1
+			try:
+				x.printInfo()
+			except:
+				print "\nYou have no additional equippable items in inventory."
+		print "Your usable items are:"
+		for x in self.items:
+			x.printInfo()
+	def displaySpells(self):
+		for x in self.equipped: 
+			x.printInfo()
+		loopEnter=0
+		for x in self.spells:
+			if isinstance(x, spells.Spell):
+				if loopEnter==0:
+					print "Your usable spells are:"
+					loopEnter+=1
+				x.printInfo()
+			else:
+				print "\nYou do not know any spells."
+		
 	def setGold(self):
 		die=diceRoll.Die()
 		self.gold=die.roll(100,5)
+	def checkGold(self, itemPrice):
+		if self.gold >= itemPrice:
+			return True
+		else:
+			print "You do not have enough gold to purchase that item."
+			return False
+
 	def initialSpells(self):
 		print
 	def initialSkills(self):
 		print
 	def displayInfo(self):
-		print"\n\tYour Name:", self.name,"\n\tYour Race:", self.race,"\n\tYour Class:", self.job, "\n"
-		print"\tYour stats are:\n"
+		print"\n\tYour Name:", self.name,"\n\tYour Race:", self.race,"\n\tYour Class:", self.job, ""
+		print"\tHP:", self.currentHP, "/", self.maxHP, "\t\tMP:", self.currentMP, "/", self.maxMP, " "
+		print"\n\tYour stats are:"
 		x=0
 		for stat in self.statNames and self.statVals:
-			print "\t", self.statNames[x], ":", self.statVals[x], "\n"
-			x+=1
-		print"Your hp is:", self.hp, " "
-		print"Your mp is:", self.mp, " "
+			print "\t", self.statNames[x], ":", self.statVals[x], ""
+			x+=1	
 	def save(self):
 		print
 	def load(self):
 		print
+	def addItem(self, fileName, listName, itemName):
+		imported = getattr(__import__(fileName, fromlist=[listName]), listName)
+		x=0
+		for item in imported:
+			if itemName==imported[x][0]:
+				if listName == "meleeList":
+					item=equipment.Weapon(imported[x])
+					self.equipment.append(item)
+				elif listName=="rangedList":
+					item=equipment.Ranged(imported[x])
+					self.equipment.append(item)
+				elif listName=="armorList":        
+					item=equipment.Armor(imported[x])
+					self.equipment.append(item)
+				elif listName=="shieldList":
+					item=equipment.Shield(imported[x])
+					self.equipment.append(item)
+				elif listName=="gauntletList":
+					item=equipment.Gauntlet(imported[x])
+					self.equipment.append(item)
+				elif listName=="bootList":
+					item=equipment.Boots(imported[x])
+					self.equipment.append(item)
+				elif listName=="helmetList":
+					item=equipment.Helmet(imported[x])
+					self.equipment.append(item)
+				elif listName=="necklaceList":
+					item=equipment.Necklace(imported[x])
+					self.accessories.append(item)
+				elif listName=="ringList":
+					item=equipment.Ring(imported[x])
+					self.accessories.append(item)
+				elif listName=="itemList":        
+					item=equipment.Item(imported[x])
+					self.items.append(item)
+				elif listName=="spellList":
+					item=spells.Spell(imported[x])
+					self.spells.append(item)
+				elif listName=="skillList":
+					item=skills.Skill(imported[x])
+					self.skills.append(item)
+			else:
+			        x+=1
+	def removeItem(self, item):
+		if item.__repr__ == "item":
+			self.items.remove(item)
+		elif item.__repr__ == "spell":
+			self.spells.remove(item)
+		elif item.__repr__ == "skill":
+			self.skills.remove(item)
+		elif item.__repr__ == "ring" or item.__repr__ == "necklace":
+			self.accessories.remove(item)
+		else:
+			self.equipment.remove(item)
