@@ -20,6 +20,7 @@ def start():
 			print
 			character=generate.Player()
 			character.displayEquip()
+			character.displayItems()
 			character.displayInfo()
 			character.displaySpells()
 		elif choice == 2:

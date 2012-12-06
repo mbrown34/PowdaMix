@@ -293,16 +293,14 @@ class Player:
 			if loopEnter<1:
 				print "Your equippable items are:"
 				loopEnter+=1
-			try:
-				x.printInfo()
-			except:
-				print "\nYou have no additional equippable items in inventory."
+			x.printInfo()
+	
+		print "\nYou have no additional equippable items in inventory.\n"
+	def displayItems(self):		
 		print "Your usable items are:"
 		for x in self.items:
 			x.printInfo()
 	def displaySpells(self):
-		for x in self.equipped: 
-			x.printInfo()
 		loopEnter=0
 		for x in self.spells:
 			if isinstance(x, spells.Spell):
@@ -339,49 +337,51 @@ class Player:
 		print
 	def load(self):
 		print
-	def addItem(self, fileName, listName, itemName):
+	def getItem(self, fileName, listName, itemName):
 		imported = getattr(__import__(fileName, fromlist=[listName]), listName)
 		x=0
 		for item in imported:
-			if itemName==imported[x][0]:
-				if listName == "meleeList":
-					item=equipment.Weapon(imported[x])
-					self.equipment.append(item)
-				elif listName=="rangedList":
-					item=equipment.Ranged(imported[x])
-					self.equipment.append(item)
-				elif listName=="armorList":        
-					item=equipment.Armor(imported[x])
-					self.equipment.append(item)
-				elif listName=="shieldList":
-					item=equipment.Shield(imported[x])
-					self.equipment.append(item)
-				elif listName=="gauntletList":
-					item=equipment.Gauntlet(imported[x])
-					self.equipment.append(item)
-				elif listName=="bootList":
-					item=equipment.Boots(imported[x])
-					self.equipment.append(item)
-				elif listName=="helmetList":
-					item=equipment.Helmet(imported[x])
-					self.equipment.append(item)
-				elif listName=="necklaceList":
-					item=equipment.Necklace(imported[x])
-					self.accessories.append(item)
-				elif listName=="ringList":
-					item=equipment.Ring(imported[x])
-					self.accessories.append(item)
-				elif listName=="itemList":        
-					item=equipment.Item(imported[x])
-					self.items.append(item)
-				elif listName=="spellList":
-					item=spells.Spell(imported[x])
-					self.spells.append(item)
-				elif listName=="skillList":
-					item=skills.Skill(imported[x])
-					self.skills.append(item)
+			if itemName == imported[x][0]:
+				return imported[x]
 			else:
-			        x+=1
+				x+=1
+	def addItem(self, fileName, listName, itemName):
+		if listName == "meleeList":
+			theItem=equipment.Weapon(self.getItem(fileName, listName, itemName))
+			self.equipment.append(theItem)
+		elif listName=="rangedList":
+			theItem=equipment.Ranged(self.getItem(fileName, listName, itemName))
+			self.equipment.append(theItem)
+		elif listName=="armorList":      
+			theItem=equipment.Armor(self.getItem(fileName, listName, itemName))
+			self.equipment.append(theItem)
+		elif listName=="shieldList":
+			theItem=equipment.Shield(self.getItem(fileName, listName, itemName))
+			self.equipment.append(theItem)
+		elif listName=="gauntletList":
+			theItem=equipment.Gauntlet(self.getItem(fileName, listName, itemName))
+			self.equipment.append(theItem)
+		elif listName=="bootList":
+			theItem=equipment.Boots(self.getItem(fileName, listName, itemName))
+			self.equipment.append(theItem)
+		elif listName=="helmetList":
+			item=equipment.Helmet(self.getItem(fileName, listName, itemName))
+			self.equipment.append(item)
+		elif listName=="necklaceList":
+			item=equipment.Necklace(self.getItem(fileName, listName, itemName))
+			self.accessories.append(item)
+		elif listName=="ringList":
+			item=equipment.Ring(self.getItem(fileName, listName, itemName))
+			self.accessories.append(item)
+		elif listName=="itemList":       
+			item=equipment.Item(self.getItem(fileName, listName, itemName))
+			self.items.append(item)
+		elif listName=="spellList":
+			item=spells.Spell(self.getItem(fileName, listName, itemName))
+			self.spells.append(item)
+		elif listName=="skillList":
+			item=skills.Skill(self.getItem(fileName, listName, itemName))
+			self.skills.append(item)
 	def removeItem(self, item):
 		if item.__repr__ == "item":
 			self.items.remove(item)

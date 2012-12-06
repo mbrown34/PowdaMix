@@ -27,7 +27,7 @@ class Ranged:
 		self.desc=item[1]
 		self.dieNum=item[2]
 		self.dieSides=item[3]
-		self.range=item[4]		
+		self.effectRange=item[4]		
 		self.buy=item[5]
 		self.sell=item[6]
 		#self.weight=item[7]
@@ -37,7 +37,7 @@ class Ranged:
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
 		print "Damage Die:", self.dieNum, "d", self.dieSides, ""
-		print "Range:", self.range, "meters"
+		print "Range:", self.effectRange, "meters"
 		print "Purchase Amount:", self.buy, ""
 		print "Sell Value:", self.sell, "\n"
 		#print "The item's weight is", self.weight, "\n"
@@ -138,13 +138,13 @@ class Shield:
 		#print "The item's weight is", self.weight, "\n"
 class Necklace:
 	def __init__(self, item):
-		self.name=item[0]
-		self.desc=item[1]
-		self.trait=item[2]
-		self.effect=item[3]
-		self.value=item[4]
-		self.buy=item[5]
-		self.sell=item[6]
+		self.name=name
+		self.desc=desc
+		self.trait=trait
+		self.effect=effect
+		self.value=value
+		self.buy=buy
+		self.sell=sell
 		#self.weight=item[7]
 	def __repr__(self):
 		return "necklace"
