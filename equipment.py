@@ -12,8 +12,7 @@ class Weapon:
 		self.buy=item[4]
 		self.sell=item[5]
 		#self.weight=item[6]
-	def __repr__(self):
-		return "melee"
+		self.type="melee"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -31,8 +30,7 @@ class Ranged:
 		self.buy=item[5]
 		self.sell=item[6]
 		#self.weight=item[7]
-	def __repr__(self):
-		return "ranged"
+		self.type="ranged"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -50,8 +48,7 @@ class Armor:
 		self.buy=item[4]
 		self.sell=item[5]
 		#self.weight=item[6]
-	def __repr__(self):
-		return "armor"
+		self.type = "armor"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -69,8 +66,7 @@ class Gauntlet:
 		self.buy=item[4]
 		self.sell=item[5]
 		#self.weight=item[6]
-	def __repr__(self):
-		return "gauntlets"
+		self.type = "gauntlets"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -88,8 +84,7 @@ class Helmet:
 		self.buy=item[4]
 		self.sell=item[5]
 		#self.weight=item[6]
-	def __repr__(self):
-		return "helmet"
+		self.type="helmet"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -107,8 +102,7 @@ class Boots:
 		self.buy=item[4]
 		self.sell=item[5]
 		#self.weight=item[6]
-	def __repr__(self):
-		return "boots"
+		self.type="boots"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -126,8 +120,7 @@ class Shield:
 		self.buy=item[4]
 		self.sell=item[5]
 		#self.weight=item[6]
-	def __repr__(self):
-		return "shield"
+		self.type="shield"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -146,8 +139,7 @@ class Necklace:
 		self.buy=buy
 		self.sell=sell
 		#self.weight=item[7]
-	def __repr__(self):
-		return "necklace"
+		self.type="necklace"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -167,8 +159,8 @@ class Ring:
 		self.buy=item[5]
 		self.sell=item[6]
 		#self.weight=item[7]
-	def __repr__(self):
-		return "ring"
+		self.type="ring"
+
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -187,8 +179,7 @@ class Item:
 		self.buy=item[4]
 		self.sell=item[5]
 		#self.weight=item[6]
-	def __repr__(self):
-		return "item"
+		self.type="item"
 	def printInfo(self):
 		print "Name:", self.name, ""
 		print "Description:", self.desc, ""
@@ -205,7 +196,7 @@ meleeList= [
 	    ["Long Sword", "A decent sword used in combat.", 1, 8, 50, 20], 
 	    ["Staff", "A wooden staff engraved with the user's insignia.", 1, 6, 35, 15],
 	    ["Mace", "A large club used typically by Clerics.", 1, 8, 50, 20], 
-	    ["Warhammer", "A heavy, two-handed weapon capable of a large amount of damage", 2, 8, 100, 45],
+	    ["Warhammer ", "A heavy, two-handed weapon capable of a large amount of damage", 2, 8, 100, 45],
 	   ] 
 #ranged weapons follow the same formula above, with the addition of a fifth item in the list used for the range of the weapon, followed by buy value, sell value, and weight
 rangedList= [
@@ -236,12 +227,12 @@ shieldList=[
 #helmetList=[]
 #necklaceList=[]
 #ringList=[]
-#item addition is name, description, effect type, i.e. heal, status, damage, etc., value for effect, i.e. +100 for healing, -20 for damage, "+Confused" for status adding #confusion, "-Poison" for removing poison, buy value, sell value, weight
+#item addition is name, description, effect type, i.e. + for adding hp or status, - for removing hp or status, etc., value for effect, i.e. integer for hp or mp or a string for the status effect that is initiated or cancelled, buy value, sell value, weight
 itemList= [
-		["Light Potion", "A small potion for healing light wounds.", "Healing", 25, 50, 30],
-		["Sober Potion", "A potion used to aid in recovering one's wits.", "Status", "-Confused", 25, 10],
-		["Medium Potion", "A medium-sized potion for healing more serious wounds.", "Healing", 50, 100, 45],
-		["Small Mana Potion", "A small potion for recovering mp.", "MP Recover", 25, 50, 30],
-		["Large Mana Potion", "A large potion that recovers a large amount of mp.", "MP Recover", 50, 100, 45],
-		["Elixir", "A special potion that fully restores all hp and mp.", "Healing", 100, 200, 1],
+		["Light Potion", "A small potion for healing light wounds.", "+", 25, 50, 30],
+		["Medium Potion", "A medium-sized potion for healing more serious wounds.", "+", 50, 100, 45],
+		["Sobering Potion", "A potion used to aid in recovering one's wits.", "-", "Confusion", 25, 10],
+		["Small Mana Potion", "A small potion for recovering mp.", "+", 25, 50, 30],
+		["Large Mana Potion", "A large potion that recovers a large amount of mp.", "+", 50, 100, 45],
+		["Elixir ", "A special potion that fully restores all hp and mp.", "+", 100, 1000, 1],
 	  ]

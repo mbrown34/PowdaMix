@@ -3,7 +3,7 @@ Created on November 27, 2012
 
 @author Matthew
 """
-import diceRoll
+import tools
 import random
 class Enemy:	      
 	def __init__(self):
@@ -63,11 +63,9 @@ def genEnemy():
 	badguy[7] = goldDrop
 	return badguy
 def setHealth(hitdice):
-	die = diceRoll.Die()
-	hp = die.roll(hitdice, 6)
+	hp = tools.roll(hitdice, 6)
 	return hp
 def setGold(gold):
-	die = diceRoll.Die()
-	goldAmt = die.roll(gold, 6)
+	goldAmt = tools.roll(gold, 6)
 	return goldAmt
 

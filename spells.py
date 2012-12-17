@@ -10,6 +10,7 @@ class Spell:
 		self.effect=item[2]
 		self.effectVal=item[3]
 		self.effectVal2=item[4]
+		self.type="spell"
 		
 	def __repr__(self):
 		return "spell"

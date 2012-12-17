@@ -5,7 +5,7 @@ Created on November 10, 2012
 """
 import generate
 import enemy
-#import store
+import store
 def start():
 	title()
 	choice = 0
@@ -17,15 +17,18 @@ def start():
 		"""
 		choice=input(">> ")
 		if choice == 1:
+			load = False
 			print
-			character=generate.Player()
-			character.displayEquip()
+			character=generate.Player(load)
+			character.displayEquipped()
+			character.displayInventory()
 			character.displayItems()
 			character.displayInfo()
 			character.displaySpells()
-		elif choice == 2:
+		elif choice == 2: 
 			print "This functionality has not been added yet."
-			#character= generate.load()
+			#load = True
+			#character= generate.load(load)
 		elif choice == 3:
 			gameOver=True
 			return gameOver
@@ -37,34 +40,39 @@ def start():
 def main(character):
 	choice=0
 	gameOver=False
-	while choice < 1 or choice > 5 or gameOver != True:
+	while choice < 1 or choice > 6 or gameOver != True:
 		print"""\n\n\t\t\tMAIN MENU:
-		1) Purchase equipment from the store
+		1) Enter the item and equipment shop
 		2) Combat foes in the battle square
 		3) View your current character information
-		4) Save your current inventory and status
-		5) Exit the game
+		4) Manage your Inventory and Equipment
+		5) Save your current inventory and status
+		6) Exit the game
 		"""
 		choice = input(">> ")
 		if choice == 1:
-			store(character)
+			shop(character)
 		elif choice == 2:
 			print "This functionality has not been fully implemented yet."
 			villain=enemy.Enemy()
 			villain.printInfo()
 		elif choice == 3:
-			character.displayEquip()
 			character.displayInfo()
 			character.displaySpells()
 		elif choice == 4:
+			character.displayEquipped()
+			character.equip()
+		elif choice == 5:
 			print "This functionality has not been added yet."
 			#save character
-		elif choice == 5:
+		elif choice == 6:
 			gameOver=True
 			return gameOver
+		elif gameOver==True:
+			overScreen()
 		else:
 			"\nI'm sorry, that is not a valid choice.  Please try again..."
-def store(character):
+def shop(character):
 	choice = 0
 	while choice < 1 or choice > 3:
 		print"""\n\n\t\t\tSTORE MENU:
@@ -85,16 +93,7 @@ def store(character):
 			6) Cancel
 			"""
 			userChoice = input(">> ")
-			store.purchaseStore(character, userChoice) 
-			
-	#####
-###############
-#################
-##############
-###############
-###############
-##############
-###########THIS IS WHERE YOU LEFT OFF		
+			store.purchaseStore(character, userChoice) 		
 		elif choice ==2:
 		    userChoice = 0
 		    while userChoice < 1 or userChoice > 6:
@@ -107,27 +106,13 @@ def store(character):
 			6) Cancel
 			"""
 			userChoice = input(">> ")
-			if userChoice == 1:
-				print "This functionality has not been added yet."
-				#store.meleeSell(character)
-			elif userChoice == 2:
-				print "This functionality has not been added yet."
-				#store.rangedSell(character)
-			elif userChoice == 3:
-				print "This functionality has not been added yet."
-				#store.armorSell(character)
-			elif userChoice == 4:
-				print "This functionality has not been added yet."
-				#store.accSell(character)
-			elif userChoice == 5:
-				print "This functionality has not been added yet."
-				#store.itemSell(character)
-			elif userChoice == 6:
-				pass
-			else:
-				"\nI'm sorry, that is not a valid choice.Please try again..."
+			store.sellStore(character, userChoice)
+		elif choice ==3:
+			pass
+		else:
+			print "I'm sorry, but that is not a valid entry. Please try again."
 def title():
-	print"""\n\n\t\t    WELCOME TO...\n\n
+	print"""\n\n\t\t        WELCOME TO...\n\n
 	    @@   @      @      @@@   @@@@@@@@    @@@         @@      @@@@@@@
    	   @@   @@     @@     @@@    @@ @@ @@   @@@         @@@@    @@@@@@   
  	   @@@  @@     @@    @@     @  @@  @   @@         @@  @@    @@
@@ -143,8 +128,29 @@ def title():
 	        @@  @@    @@@@@       @@ @@    @@  @@    @@@
 	        @@@@@@    @@  @@      @@ @@    @@@@@@    @@@
 	      @ @@   @    @@   @@     @@ @@  @ @@  @@       
-	      @@@@  @@    @@    @@    @@@@   @@@@  @@    @@@
-	       @@   @@    @@    @@@  @@@      @@   @@    @@@
+	      @@@@  @@    @@   @@     @@@@   @@@@  @@    @@@
+	       @@   @@    @    @     @@@      @@   @@    @@@
 """
-	raw_input("\n\n\t\t...Press the enter key to continue")
+	raw_input("\n\n\t\t\t...Press the enter key to continue")
+
+def overScreen():
+	print"""\n\n\n\t\t     YOU WERE DEFEATED...\n\n
+                     @@@@@       @@        @@   @    @@@@@@    
+                   @@@  @@@     @@@@      @@   @@   @@@  @@@   
+                  @@@           @@ @@     @@@  @@   @@         
+                  @@@  @@@@@   @@  @@    @@@@@@@@   @@ @@@    
+                  @@@  @@@@@   @@@@@@  @ @@@ @ @@   @@@@@     
+                   @@@   @@  @ @@   @  @@@@    @@   @@@    @@@
+                    @@@@@@   @@@@  @@  @@@     @@@   @@@@@@@@ 
+                      @@      @@   @@   @       @@     @@@@   
 	
+                        @@     @  @@    @@@@@@    @@@@@@ 
+                       @@@@   @    @@  @@@  @@@   @@   @@
+                     @@  @@  @@    @@@ @@         @@  @@@
+                     @@   @@ @@    @@@ @@ @@@     @@@@@ 
+                     @@   @@ @@@   @@@ @@@@@      @@  @@ 
+                     @@   @@ @@@  @@@  @@@   @@@  @@   @@
+                      @@ @@   @@@@@@    @@@@@@@@  @@   @@ 
+                       @@@     @@@        @@@@    @    @  
+"""
+
