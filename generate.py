@@ -4,7 +4,6 @@ Created on November 11, 2012
 
 @author Matthew
 """
-import diceRoll
 import tools
 import spells
 #import skills
@@ -15,7 +14,7 @@ class Player:
 		self.name='None'
 		self.race='None'
 		self.job='None'
-		self.stats={"STR": 0,"DEX": 0,"CON": 0,"INT": 0,"WIS": 0,"CHA: 0"}
+		self.stats={"STR": 0,"DEX": 0,"CON": 0,"INT": 0,"WIS": 0,"CHA": 0}
 		self.statusEffects=[]
 		self.currentHP=0
 		self.maxHP=0
@@ -154,12 +153,14 @@ class Player:
 		self.stats['WIS'] = tools.roll(3,6)
 		self.stats['CHA'] = tools.roll(3,6)
 		print "\nYour current stat rolls are:\n"
-		print self.stats.items()
+		print "\tSTR:", self.stats['STR'], "\tDEX:", self.stats['DEX'], "\tCON:", self.stats['CON']
+		print "\tINT:", self.stats['INT'], "\tWIS:", self.stats['WIS'], "\tCHA:", self.stats['CHA']
 		extraPoints=tools.roll(4,6)
 	        while extraPoints > 0 or choice < 1 or choice > 6:
 			print "\nYou have", extraPoints,"to spend on increasing stats."
 			print "Which stat would you like to increase? (You cannot increase higher than 18)\n"
-			print "\n\t1) STR:",self.stats['STR'],"\t2) DEX:",self.stats['DEX'],"\t3) CON:",self.stats['CON'],"\t4) INT:",self.stats['INT'],"\t5) WIS:",self.stats['WIS'],"\t6) CHA:",self.stats['CHA'],"\n"
+			print "\n\t1) STR:",self.stats['STR'],"\t2) DEX:",self.stats['DEX'],"\t3) CON:",self.stats['CON']
+			print "\t4) INT:",self.stats['INT'],"\t5) WIS:",self.stats['WIS'],"\t6) CHA:",self.stats['CHA'],"\n"
 			choice = input("\n>> ")
 			if choice == 1:
 				if self.stats['STR'] < 18:
@@ -226,11 +227,8 @@ class Player:
 			self.addItem("equipment", "shieldList","Medium Shield")
 			self.addItem("equipment","armorList", "Studded Armor")
 			self.equip('R-HAND', self.equipment[1])
-			self.equipment.remove(self.equipment[1])
 			self.equip('L-HAND', self.equipment[1])
-			self.equipment.remove(self.equipment[1])
 			self.equip('BODY', self.equipment[1])
-			self.equipment.remove(self.equipment[1])
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Medium Potion")
@@ -239,9 +237,7 @@ class Player:
 			self.addItem("equipment", "armorList","Mage's Robes")
 			self.addItem("equipment","meleeList", "Dagger")
 			self.equip('R-HAND', self.equipment[0])
-			self.equipment.remove(self.equipment[0])
 			self.equip('BODY', self.equipment[0])
-			self.equipment.remove(self.equipment[0])
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Small Mana Potion")
@@ -256,9 +252,7 @@ class Player:
 			self.addItem("equipment", "armorList","Leather Armor")
 			self.addItem("equipment","meleeList", "Short Sword")
 			self.equip('BODY', self.equipment[2])
-			self.equipment.remove(self.equipment[2])
 			self.equip('R-HAND', self.equipment[2])
-			self.equipment.remove(self.equipment[2])
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Medium Potion")
@@ -267,9 +261,7 @@ class Player:
 			self.addItem("equipment", "rangedList","Long Bow")
 			self.addItem("equipment", "armorList","Studded Armor")
 			self.equip('R-HAND', self.equipment[1])
-			self.equipment.remove(self.equipment[1])
 			self.equip('BODY', self.equipment[1])
-			self.equipment.remove(self.equipment[1])
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Medium Potion")
@@ -278,12 +270,9 @@ class Player:
 			self.addItem("equipment", "meleeList","Mace")
 			self.addItem("equipment", "shieldList","Small Shield")
 			self.addItem("equipment", "armorList","Scale Armor")
-			self.equip('R-HAND', self.equipment[0])	
-			self.equipment.remove(self.equipment[0])
+			self.equip('R-HAND', self.equipment[0])
 			self.equip('L-HAND', self.equipment[0])
-			self.equipment.remove(self.equipment[0])
 			self.equip('BODY', self.equipment[0])
-			self.equipment.remove(self.equipment[0])
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Medium Potion")
@@ -291,7 +280,6 @@ class Player:
 		elif self.job=='Monk':
 			self.addItem("equipment", "armorList","Monk's Garb")
 			self.equip('BODY', self.equipment[0])
-			self.equipment.remove(self.equipment[0])
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Light Potion")
 			self.addItem("equipment","itemList", "Light Potion")
@@ -312,20 +300,56 @@ class Player:
 			print "", item.name, "\t"
 		print "\nYou have no additional equippable items in inventory.\n"
 	def displayEquipped(self):
-		arms = self.equipped['ARMS']
-		head = self.equipped['HEAD']
-		accessory=self.equipped['ACC']
-		armor=self.equipped['BODY']
-		rightHand=self.equipped['R-HAND']
-		leftHand=self.equipped['L-HAND']
-		boots=self.equipped['FEET']
-		rRing=self.equipped['R-RING']
-		lRing=self.equipped['L-RING']
+		if self.equipped['ARMS'] == ' ':
+			arms = self.equipped['ARMS']
+		else:
+			gaunt = self.equipped['ARMS']
+			arms = gaunt.name
+		if self.equipped['HEAD'] == ' ':
+			head =self.equipped['HEAD']
+		else:
+			helm = self.equipped['HEAD']
+			head = helm.name
+		if self.equipped['ACC'] == ' ':
+			accessory =self.equipped['ACC']
+		else:
+			neck = self.equipped['ACC']
+			accessory = neck.name
+		if self.equipped['BODY'] == ' ':
+			armor=self.equipped['BODY']
+		else:
+			body = self.equipped['BODY']
+			armor=body.name
+		if self.equipped['R-HAND'] == ' ':
+			rightHand=self.equipped['R-HAND']
+		else:
+			rHand = self.equipped['R-HAND']
+			rightHand=rHand.name
+		if self.equipped['L-HAND'] == ' ':
+			leftHand=self.equipped['L-HAND']
+		else:
+			lHand = self.equipped['L-HAND']
+			leftHand= lHand.name
+		if self.equipped['FEET'] == ' ':
+			boots=self.equipped['FEET']
+		else:
+			feet = self.equipped['FEET']
+			boots=feet.name
+		if self.equipped['R-RING'] == ' ':
+			rRing=self.equipped['R-RING']
+		else:
+			rightRing = self.equipped['R-RING']
+			rRing=rightRing.name
+		if self.equipped['L-RING'] == ' ':
+			lRing=self.equipped['L-RING']
+		else:
+			leftRing = self.equipped['L-RING']
+			lRing=leftRing.name
 		print "\t\t\tEQUIPPED ITEMS:\n"
-		print "  ARMS [", arms.name , "]       HEAD  [", head.name, "]       ACCESSORY [", accessory.name, "]"
-		print "                     ARMOR [", armor.name, "]  "
-		print "  RIGHT HAND [",rightHand.name , "]   BOOTS [", boots.name, "]      LEFT HAND  [", leftHand.name, "]"
-		print "         RIGHT RING [", rRing.name, "]           LEFT RING [", lRing.name, "]" 
+		print "  ARMS [", arms , "]       HEAD  [", head, "]       ACCESSORY [", accessory, "]"
+		print "                     ARMOR [", armor, "]  "
+		print "  RIGHT HAND [",rightHand , "]   BOOTS [", boots, "]      LEFT HAND  [", leftHand, "]"
+		print "         RIGHT RING [", rRing, "]           LEFT RING [", lRing, "]" 
 		
 	def displayItems(self):		
 		print "\t\t\tITEMS:"
@@ -349,10 +373,8 @@ class Player:
 		print"\n\tYour Name:", self.name,"\n\tYour Race:", self.race,"\n\tYour Class:", self.job, ""
 		print"\tHP:", self.currentHP, "/", self.maxHP, "\t\tMP:", self.currentMP, "/", self.maxMP, " "
 		print"\n\tYour stats are:"
-		x=0
-		for stat in self.statNames and self.statVals:
-			print "\t", self.statNames[x], ":", self.statVals[x], ""
-			x+=1
+		print "\tSTR:", self.stats['STR'], "\tDEX:", self.stats['DEX'], "\tCON:", self.stats['CON']
+		print "\tINT:", self.stats['INT'], "\tWIS:", self.stats['WIS'], "\tCHA:", self.stats['CHA']
 		print"\n\tGold:", self.gold
 		print "\tCurrent Status: " 
 		if len(self.statusEffects) > 0:
@@ -445,8 +467,9 @@ class Player:
 		self.displayEquipped()
 		choice =0
 		while choice < 1 or choice > 10:
-			print "\nWhat equipment do you want to wear?"
-			print "1) Helmet 2) Armor 3) Gauntlets 4) Equip to right hand 5) Equip to left hand 6) Boots 7) Accessory 8) Right-hand ring 9) Left-hand ring 10) Exit"
+			print "\nEquip to which slot?"
+			print "\t1) Head 2) Body 3) Arms 4) Right Hand 5) Left Hand"
+			print "\t6) Boots 7) Accessory 8) Right Ring 9) Left Ring 10) Exit"
 			choice = input("\n>> ")
 		if choice == 1:
 			helmets = []

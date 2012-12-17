@@ -60,8 +60,7 @@ def main(character):
 			character.displayInfo()
 			character.displaySpells()
 		elif choice == 4:
-			character.displayEquipped()
-			character.equip()
+			character.manageInventory()
 		elif choice == 5:
 			print "This functionality has not been added yet."
 			#save character
