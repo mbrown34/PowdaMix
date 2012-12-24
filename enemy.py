@@ -9,7 +9,8 @@ class Enemy:
 	def __init__(self):
 		self.name=""
 		self.desc=""
-		self.hp=0
+		self.currenthp=0
+		self.maxhp=0
 		self.attack=0
 		self.defense=0
 		self.xp=0
@@ -36,7 +37,8 @@ class Enemy:
 	def setVals(self, enemy):
 		self.name=enemy[0]
 		self.desc=enemy[1]
-		self.hp=enemy[2]
+		self.maxhp=enemy[2]
+		self.currenthp=maxhp
 		self.attack=enemy[3]
 		self.defense=enemy[4]
 		self.xp=enemy[5]

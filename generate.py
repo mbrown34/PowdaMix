@@ -463,6 +463,12 @@ class Player:
 			self.skills.remove(item)
 		else:
 			self.equipment.remove(item)
+	def checkItem(self, slot):
+		if slot == ' ':
+			item = 'empty'
+		elif slot != ' ':
+			item = slot.type
+		return item
 	def manageInventory(self):
 		self.displayEquipped()
 		choice =0
@@ -473,90 +479,223 @@ class Player:
 			choice = input("\n>> ")
 		if choice == 1:
 			helmets = []
-			indeces = []
 			helmetNum=0
 			choice = 0
-			for index, item in enumerate(self.equipment):
+			for item in self.equipment:
 				if item.type == "helmet":
 					helmetNum +=1
-					indeces.append(index)
 					helmets.append(item)
 			if helmetNum > 0:
-				x=1
-				while choice < 0 or choice > helmetNum:
-					for item in helmets:
-						print x, ")", item.name
-						x+=1
+				while choice < 1 or choice > helmetNum:
+					for index, item in enumerate(helmets):
+						print index+1, ")", item.name
 					choice = input("\n>> ")
-					if self.equipped['HEAD'] == ' ':
-						self.equipped['HEAD'] = helmets[choice-1]
-						self.equipment.remove(self.equipment[indeces[choice-1]])
-					else:
-						self.equipment.append(self.equipped['HEAD'])
-						self.equipped['HEAD'] = helmets[choice-1]
-						self.equipment.remove(self.equipment[indeces[choice-1]])
-					
-						
+				theItem= helmets[choice-1]
+				if self.equipped['HEAD'] != ' ':
+					self.equipment.append(self.equipped['HEAD'])
+				self.equip('HEAD', theItem)			
 			elif helmetNum == 0:
 				print "You do not have any helmets to equip."
 		elif choice == 2:
 			armor = []
-			indeces = []
 			armorNum=0
 			choice = 0
-			for index, item in enumerate(self.equipment):
+			for item in self.equipment:
 				if item.type == "armor":
 					armorNum +=1
-					indeces.append(index)
 					armor.append(item)
 			if armorNum > 0:
-				x=1
-				while choice < 0 or choice > armorNum:
-					for item in armor:
-						print x, ")", item.name
-						x+=1
+				while choice < 1 or choice > armorNum:
+					for index, item in enumerate(armor):
+						print index+1, ")", item.name
 					choice = input("\n>> ")
-					if self.equipped['BODY'] == ' ':
-						self.equipped['BODY'] = armor[choice-1]
-						self.equipment.remove(self.equipment[indeces[choice-1]])
-					else:
-						self.equipment.append(self.equipped['BODY'])
-						self.equipped['BODY'] = armor[choice-1]
-						self.equipment.remove(self.equipment[indeces[choice-1]])
-					
-						
+				theItem=armor[choice-1]
+				if self.equipped['BODY'] != ' ':
+					self.equipment.append(self.equipped['BODY'])
+				self.equip('BODY', theItem)		
 			elif armorNum == 0:
 				print "You do not have any armor to equip."
 		elif choice == 3:
 			gauntlets = []
-			indeces = []
 			gauntNum=0
 			choice = 0
-			for index, item in enumerate(self.equipment):
+			for item in self.equipment:
 				if item.type == "gauntlets":
 					gauntNum +=1
-					indeces.append(index)
 					gauntlets.append(item)
 			if gauntNum > 0:
-				x=1
-				while choice < 0 or choice > gauntNum:
-					for item in gauntlets:
-						print x, ")", item.name
-						x+=1
+				while choice < 1 or choice > gauntNum:
+					for index, item in enumerate(gauntlets):
+						print index+1, ")", item.name
 					choice = input("\n>> ")
-					if self.equipped['ARMS'] == ' ':
-						self.equipped['ARMS'] = gauntlets[choice-1]
-						self.equipment.remove(self.equipment[indeces[choice-1]])
-					else:
-						self.equipment.append(self.equipped['ARMS'])
-						self.equipped['ARMS'] = gauntlets[choice-1]
-						self.equipment.remove(self.equipment[indeces[choice-1]])
-					
-						
+				theItem= gauntlets[choice-1]
+				if self.equipped['ARMS'] != ' ':
+					self.equipment.append(self.equipped['ARMS'])
+				self.equip('ARMS', theItem)	
 			elif gauntNum == 0:
 				print "You do not have any gauntlets to equip."
-			
-	
+		elif choice == 4:
+			items=[]
+			meleeNum=0
+			rangedNum=0
+			shieldNum=0
+			choice = 0
+			right = self.equipped['R-HAND']
+			left = self.equipped['L-HAND']
+			for item in self.equipment:
+				if item.type == "melee":
+					meleeNum +=1
+					items.append(item)
+				elif item.type == "ranged":
+					rangedNum +=1
+					items.append(item)
+				elif item.type == "shield":
+					shieldNum +=1
+					items.append(item)
+			totalItems = meleeNum + rangedNum + shieldNum
+			if totalItems > 0:
+				while choice < 1 or choice > totalItems:
+					for index, equippable in enumerate(items):
+						print index+1, ")", item.name
+					choice = input("\n>> ")
+				theItem = items[choice-1]
+				if rangedNum > 0:	
+					if theItem.type == 'ranged':
+						if right != ' ' and left == ' ':
+							self.equipment.append(right)
+						elif right == ' ' and left != ' ':
+							self.equipment.append(left)
+						elif right != ' ' and left != ' ':
+							self.equipment.append(right)
+							self.equipment.append(left)
+						self.equip('R-HAND', theItem)
+					else:
+						if right!= ' ':
+							self.equipment.append(right)
+						self.equip('R-HAND', theItem)		
+			elif totalItems == 0:
+				print "You do not have any weapons or shields to equip."
+		elif choice == 5:
+			items=[]
+			meleeNum=0
+			rangedNum=0
+			shieldNum=0
+			choice = 0
+			right = self.equipped['R-HAND']
+			left = self.equipped['L-HAND']
+			for item in self.equipment:
+				if item.type == "melee":
+					meleeNum +=1
+					items.append(item)
+				elif item.type == "ranged":
+					rangedNum +=1
+					items.append(item)
+				elif item.type == "shield":
+					shieldNum +=1
+					items.append(item)
+			totalItems = meleeNum + rangedNum + shieldNum
+			if totalItems > 0:
+				while choice < 1 or choice > totalItems:
+					for index, equippable in enumerate(items):
+						print index+1, ")", item.name
+					choice = input("\n>> ")
+				theItem = items[choice-1]
+				if rangedNum > 0:	
+					if theItem.type == 'ranged':
+						if right != ' ' and left == ' ':
+							self.equipment.append(right)
+						elif right == ' ' and left != ' ':
+							self.equipment.append(left)
+						elif right != ' ' and left != ' ':
+							self.equipment.append(right)
+							self.equipment.append(left)
+						self.equip('L-HAND', theItem)
+					else:
+						if left != ' ':
+							self.equipment.append(left)
+						self.equip('L-HAND', theItem)		
+			elif totalItems == 0:
+				print "You do not have any weapons or shields to equip."
+		elif choice == 6:
+			boots = []
+			bootNum=0
+			choice = 0
+			for item in self.equipment:
+				if item.type == "boot":
+					bootNum +=1
+					boots.append(item)
+			if bootNum > 0:
+				while choice < 1 or choice > bootNum:
+					for index, item in enumerate(boots):
+						print index+1, ")", item.name
+					choice = input("\n>> ")
+				theItem = boots[choice-1]
+				if self.equipped['FEET'] != ' ':
+					self.equipment.append(self.equipped['FEET'])
+				self.equip('FEET', theItem)			
+			elif bootNum == 0:
+				print "You do not have any boots to equip."
+		elif choice == 7:
+			accessory = []
+			accessoryNum=0
+			choice = 0
+			for item in self.equipment:
+				if item.type == "necklace":
+					accessoryNum +=1
+					accessory.append(item)
+			if accessoryNum > 0:
+				while choice < 1 or choice > accessoryNum:
+					for index, item in enumerate(accessory):
+						print index+1, ")", item.name
+					choice = input("\n>> ")
+				theItem = accessory[choice-1]
+				if self.equipped['ACC'] != ' ':
+					self.equipment.append(self.equipped['ACC'])
+				self.equip('ACC', theItem)			
+			elif accessoryNum == 0:
+				print "You do not have any accessories to equip."
+		elif choice == 8:
+			rightRing = []
+			rightRingNum=0
+			choice = 0
+			for item in self.equipment:
+				if item.type == "ring":
+					rightRingNum +=1
+					rightRing.append(item)
+			if rightRingNum > 0:
+				while choice < 1 or choice > rightRingNum:
+					for index, item in enumerate(rightRing):
+						print index+1, ")", item.name
+						choice = input("\n>> ")
+				theItem = rightRing[choice-1]
+				if self.equipped['R-RING'] != ' ':
+					self.equipment.append(self.equipped['R-RING'])
+				self.equip('R-RING', theItem)			
+			elif rightRingNum == 0:
+				print "You do not have any rings to equip."
+		elif choice == 9:
+			leftRing = []
+			leftRingNum=0
+			choice = 0
+			for iitem in self.equipment:
+				if item.type == "ring":
+					leftRingNum +=1
+					leftRing.append(item)
+			if leftRingNum > 0:
+				while choice < 1 or choice > leftRingNum:
+					for index, item in enumerate(leftRing):
+						print index+1, ")", item.name
+						choice = input("\n>> ")
+				theItem=leftRing[choice-1]
+				if self.equipped['L-RING'] != ' ':
+					self.equipment.append(self.equipped['L-RING'])
+				self.equip('L-RING', theItem)			
+			elif leftRingNum == 0:
+				print "You do not have any rings to equip."
+		elif choice == 10:
+			pass
+		else:
+			"\nI'm sorry that is not a valid entry."
 	def equip(self, slot, item):
 		self.equipped[slot] = item
 		self.equipment.remove(item) 
