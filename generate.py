@@ -487,8 +487,8 @@ class Player:
 					helmets.append(item)
 			if helmetNum > 0:
 				while choice < 1 or choice > helmetNum:
-					for index, item in enumerate(helmets):
-						print index+1, ")", item.name
+					for index, equippable in enumerate(helmets):
+						print index+1, ")", equippable.name
 					choice = input("\n>> ")
 				theItem= helmets[choice-1]
 				if self.equipped['HEAD'] != ' ':
@@ -506,8 +506,8 @@ class Player:
 					armor.append(item)
 			if armorNum > 0:
 				while choice < 1 or choice > armorNum:
-					for index, item in enumerate(armor):
-						print index+1, ")", item.name
+					for index, equippable in enumerate(armor):
+						print index+1, ")", equippable.name
 					choice = input("\n>> ")
 				theItem=armor[choice-1]
 				if self.equipped['BODY'] != ' ':
@@ -525,8 +525,8 @@ class Player:
 					gauntlets.append(item)
 			if gauntNum > 0:
 				while choice < 1 or choice > gauntNum:
-					for index, item in enumerate(gauntlets):
-						print index+1, ")", item.name
+					for index, equippable in enumerate(gauntlets):
+						print index+1, ")", equippable.name
 					choice = input("\n>> ")
 				theItem= gauntlets[choice-1]
 				if self.equipped['ARMS'] != ' ':
@@ -556,7 +556,7 @@ class Player:
 			if totalItems > 0:
 				while choice < 1 or choice > totalItems:
 					for index, equippable in enumerate(items):
-						print index+1, ")", item.name
+						print index+1, ")", equippable.name
 					choice = input("\n>> ")
 				theItem = items[choice-1]
 				if rangedNum > 0:	
@@ -597,7 +597,7 @@ class Player:
 			if totalItems > 0:
 				while choice < 1 or choice > totalItems:
 					for index, equippable in enumerate(items):
-						print index+1, ")", item.name
+						print index+1, ")", equippable.name
 					choice = input("\n>> ")
 				theItem = items[choice-1]
 				if rangedNum > 0:	
@@ -626,8 +626,8 @@ class Player:
 					boots.append(item)
 			if bootNum > 0:
 				while choice < 1 or choice > bootNum:
-					for index, item in enumerate(boots):
-						print index+1, ")", item.name
+					for index, equippable in enumerate(boots):
+						print index+1, ")", equippable.name
 					choice = input("\n>> ")
 				theItem = boots[choice-1]
 				if self.equipped['FEET'] != ' ':
@@ -645,8 +645,8 @@ class Player:
 					accessory.append(item)
 			if accessoryNum > 0:
 				while choice < 1 or choice > accessoryNum:
-					for index, item in enumerate(accessory):
-						print index+1, ")", item.name
+					for index, equippable in enumerate(accessory):
+						print index+1, ")", equippable.name
 					choice = input("\n>> ")
 				theItem = accessory[choice-1]
 				if self.equipped['ACC'] != ' ':
@@ -664,8 +664,8 @@ class Player:
 					rightRing.append(item)
 			if rightRingNum > 0:
 				while choice < 1 or choice > rightRingNum:
-					for index, item in enumerate(rightRing):
-						print index+1, ")", item.name
+					for index, equippable in enumerate(rightRing):
+						print index+1, ")", equippable.name
 						choice = input("\n>> ")
 				theItem = rightRing[choice-1]
 				if self.equipped['R-RING'] != ' ':
@@ -683,8 +683,8 @@ class Player:
 					leftRing.append(item)
 			if leftRingNum > 0:
 				while choice < 1 or choice > leftRingNum:
-					for index, item in enumerate(leftRing):
-						print index+1, ")", item.name
+					for index, equippable in enumerate(leftRing):
+						print index+1, ")", equippable.name
 						choice = input("\n>> ")
 				theItem=leftRing[choice-1]
 				if self.equipped['L-RING'] != ' ':
